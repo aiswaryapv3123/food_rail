@@ -1,4 +1,5 @@
 # food_rail
+version 1.22.6
 
 A new Flutter project.
 
