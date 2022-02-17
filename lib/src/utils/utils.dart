@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
 
-double height(context, {double height}) {
-  return MediaQuery.of(context).size.height / height;
+double screenHeight(context, {double dividedBy}) {
+  return MediaQuery.of(context).size.height / dividedBy;
 }
 
-double width(context, {double width}) {
-  return MediaQuery.of(context).size.width / width;
+double screenWidth(context, {double dividedBy}) {
+  return MediaQuery.of(context).size.width / dividedBy;
+}
+
+void push(context, Widget route) {
+  Navigator.push(context, MaterialPageRoute(builder: (context) => route));
+}
+
+void pop(context) {
+  Navigator.pop(context);
 }

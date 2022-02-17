@@ -19,14 +19,14 @@ class _ImageSliderState extends State<ImageSlider> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: width(context, width: 1),
-      height: height(context, height: 4),
+      width: screenWidth(context, dividedBy: 1),
+      height: screenHeight(context, dividedBy: 4),
       // color: Colors.red,
       alignment: Alignment.centerLeft,
       child: CarouselSlider(
         carouselController: carouselController,
         options: CarouselOptions(
-          height: height(context, height: 4),
+          height: screenHeight(context, dividedBy: 4),
           viewportFraction: 1.0,
           enlargeCenterPage: false,
           autoPlay: true,
@@ -41,16 +41,16 @@ class _ImageSliderState extends State<ImageSlider> {
               (item) => ClipRRect(
                 borderRadius: BorderRadius.circular(7),
                 child: CachedNetworkImage(
-                  width: width(context, width: 1),
-                  height: height(context, height: 2),
+                  width: screenWidth(context, dividedBy: 1),
+                  height: screenHeight(context, dividedBy: 2),
                   imageUrl: item,
                   fit: BoxFit.fill,
                   imageBuilder: (context, img) {
                     return Container(
-                      width: width(context, width: 1),
-                      height: height(context, height: 2),
+                      width: screenWidth(context, dividedBy: 1),
+                      height: screenHeight(context, dividedBy: 2),
                       margin: EdgeInsets.symmetric(
-                          horizontal: width(context, width: 90)),
+                          horizontal: screenWidth(context, dividedBy: 90)),
                       decoration: BoxDecoration(
                         // color: Colors.amber,
                         // color: Colors.transparent,

@@ -28,8 +28,8 @@ class _ExploreMenuState extends State<ExploreMenu> {
           // ),
           Center(
             child: SizedBox(
-              width: width(context, width: 6),
-              height: width(context, width: 6),
+              width: screenWidth(context, dividedBy: 6),
+              height: screenWidth(context, dividedBy: 6),
               child: ClipPolygon(
                 sides: 10,
                 borderRadius:4.0, // Defaults to 0.0 degrees
@@ -53,7 +53,7 @@ class _ExploreMenuState extends State<ExploreMenu> {
             ),
           ),
           Container(
-            width: width(context, width: 1.3),
+            width: screenWidth(context, dividedBy: 1.3),
             child: Row(
               children: [
                 Text("Beverages",

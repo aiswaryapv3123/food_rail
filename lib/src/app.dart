@@ -14,9 +14,7 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.white,
       ),
       home: BlocProvider(
-        create: (context) => HomeBloc(
-          foodHomeRepo: FoodServices()
-        ),
+          create: (context) => HomeBloc(foodHomeRepo: FoodServices()),
           child: HomePage()),
     );
   }

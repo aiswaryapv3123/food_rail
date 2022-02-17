@@ -46,48 +46,48 @@ class _HomeContentState extends State<HomeContent> {
     return SingleChildScrollView(
       child: Container(
         padding: EdgeInsets.symmetric(
-          horizontal: width(context, width: 40),
+          horizontal: screenWidth(context, dividedBy: 40),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ImageSlider(images: sliderImages),
             SizedBox(
-              height: height(context, height: 30),
+              height: screenHeight(context, dividedBy: 30),
             ),
             HeadText(title: "Explore menu"),
             SizedBox(
-              height: height(context, height: 40),
+              height: screenHeight(context, dividedBy: 40),
             ),
             ExploreMenu(),
             SizedBox(
-              height: height(context, height: 30),
+              height: screenHeight(context, dividedBy: 30),
             ),
             HeadText(title: "Featured"),
             SizedBox(
-              height: height(context, height: 40),
+              height: screenHeight(context, dividedBy: 40),
             ),
             FeaturedFood(
               featuredProducts: widget.homeData.data.featuredProducts,
             ),
             SizedBox(
-              height: height(context, height: 30),
+              height: screenHeight(context, dividedBy: 30),
             ),
             AdditionalBanners(
               additionalBanners: additionalBanners,
             ),
             SizedBox(
-              height: height(context, height: 40),
+              height: screenHeight(context, dividedBy: 40),
             ),
             HeadText(title: "Bestseller"),
             SizedBox(
-              height: height(context, height: 30),
+              height: screenHeight(context, dividedBy: 30),
             ),
             BestSeller(
               bestsellerProducts: widget.homeData.data.bestsellerProducts,
             ),
             SizedBox(
-              height: height(context, height: 40),
+              height: screenHeight(context, dividedBy: 40),
             ),
           ],
         ),

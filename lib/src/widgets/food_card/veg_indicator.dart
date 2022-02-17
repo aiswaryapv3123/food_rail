@@ -14,9 +14,9 @@ class _VegIndicatorState extends State<VegIndicator> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: width(context, width: 30),
-      height: width(context, width: 30),
-      padding: EdgeInsets.all(width(context, width: 120)),
+      width: screenWidth(context, dividedBy: 30),
+      height: screenWidth(context, dividedBy: 30),
+      padding: EdgeInsets.all(screenWidth(context, dividedBy: 120)),
       decoration: BoxDecoration(
           border: Border.all(
               color: widget.vegetarian == false
@@ -27,8 +27,8 @@ class _VegIndicatorState extends State<VegIndicator> {
               ? Constants.colors[3].withOpacity(0.1)
               : Constants.colors[4].withOpacity(0.1)),
       child: Container(
-        width: width(context, width: 30),
-        height: width(context, width: 30),
+        width: screenWidth(context, dividedBy: 30),
+        height: screenWidth(context, dividedBy: 30),
         decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: widget.vegetarian == false

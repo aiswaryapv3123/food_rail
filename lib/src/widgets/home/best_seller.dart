@@ -19,7 +19,7 @@ class _BestSellerState extends State<BestSeller> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: width(context, width: 1),
+      width: screenWidth(context, dividedBy: 1),
       // color: Colors.amber,
       child: ListView.builder(
         itemCount: widget.bestsellerProducts.length,
@@ -33,15 +33,15 @@ class _BestSellerState extends State<BestSeller> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     CachedNetworkImage(
-                      width: width(context, width: 4),
-                      height: width(context, width: 5),
+                      width: screenWidth(context, dividedBy: 4),
+                      height: screenWidth(context, dividedBy: 5),
                       imageUrl: widget.bestsellerProducts[index].image,
                       fit: BoxFit.cover,
                       imageBuilder: (context, img) {
                         return Container(
-                          width: width(context, width: 4),
-                          height: width(context, width: 5),
-                          margin: EdgeInsets.only(right: width(context, width: 30)),
+                          width: screenWidth(context, dividedBy: 4),
+                          height: screenWidth(context, dividedBy: 5),
+                          margin: EdgeInsets.only(right: screenWidth(context, dividedBy: 30)),
                           decoration: BoxDecoration(
                             // borderRadius: BorderRadius.circular(10),
                             image: DecorationImage(
@@ -65,12 +65,12 @@ class _BestSellerState extends State<BestSeller> {
                         child: Icon(
                           Icons.image_not_supported,
                           size: 20,
-                          color: Colors.white,
+                          color: Colors.black,
                         ),
                       ),
                     ),
                     SizedBox(
-                      width: width(context, width: 90),
+                      width: screenWidth(context, dividedBy: 90),
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -85,7 +85,7 @@ class _BestSellerState extends State<BestSeller> {
                                       ? true
                                       : false,
                             ),
-                            SizedBox(width: width(context, width: 50)),
+                            SizedBox(width: screenWidth(context, dividedBy: 50)),
                             Text(widget.bestsellerProducts[index].name,
                                 style: TextStyle(
                                     fontSize: 12,
@@ -95,7 +95,7 @@ class _BestSellerState extends State<BestSeller> {
                           ],
                         ),
                         SizedBox(
-                          height: height(context, height: 70),
+                          height: screenHeight(context, dividedBy: 70),
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -105,7 +105,7 @@ class _BestSellerState extends State<BestSeller> {
                               label: "Add",
                               onPressed: () {},
                             ),
-                            SizedBox(width: width(context, width: 50)),
+                            SizedBox(width: screenWidth(context, dividedBy: 50)),
                             Text("C\$ " + widget.bestsellerProducts[index].price,
                                 style: TextStyle(
                                     fontSize: 12,
@@ -120,7 +120,7 @@ class _BestSellerState extends State<BestSeller> {
                 ),
               ),
               SizedBox(
-                height: height(context, height: 40),
+                height: screenHeight(context, dividedBy: 40),
               ),
             ],
           );

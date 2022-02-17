@@ -21,14 +21,14 @@ class AdditionalBanners extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CachedNetworkImage(
-                  width: width(context, width: 1),
-                  height: height(context, height: 5),
+                  width: screenWidth(context, dividedBy: 1),
+                  height: screenHeight(context, dividedBy: 5),
                   imageUrl: additionalBanners[index],
                   fit: BoxFit.fill,
                   imageBuilder: (context, img) {
                     return Container(
-                      width: width(context, width: 1),
-                      height: height(context, height: 5),
+                      width: screenWidth(context, dividedBy: 1),
+                      height: screenHeight(context, dividedBy: 5),
                       // margin: EdgeInsets.only(right: width(context, width: 30)),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(7),
@@ -58,7 +58,7 @@ class AdditionalBanners extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: height(context, height: 120),
+                  height: screenHeight(context, dividedBy: 120),
                 ),
               ],
             ),

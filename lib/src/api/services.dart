@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:food_rail/src/models/get_category_list_data.dart';
 import 'package:food_rail/src/models/get_home_data.dart';
 import 'package:food_rail/src/utils/urls.dart';
 import 'package:http/http.dart' as http;
@@ -7,6 +8,7 @@ import 'package:http/http.dart';
 
 abstract class FoodHomeRepo {
   Future<GetHomeData> getHomeData();
+  Future<GetCategoryListData> getcategories();
 }
 
 class FoodServices implements FoodHomeRepo {
@@ -32,5 +34,23 @@ class FoodServices implements FoodHomeRepo {
     print(response);
     GetHomeData homeData = getHomeDataFromJson(response.body);
     return homeData;
+  }
+
+
+
+  @override
+  Future<GetCategoryListData> getcategories() async{
+    // TODO: implement getcategories
+    final response = await http.get(
+      Uri.parse('http://fda.intertoons.com/api/V1/categories'),
+      // Send authorization headers to the backend.
+      headers: {
+        HttpHeaders.authorizationHeader: 'Bearer akhil@intertoons.com',
+      },
+    );
+    print("Response");
+    print(response);
+    GetCategoryListData categoryListData = getCategoryListDataFromJson(response.body);
+    return categoryListData;
   }
 }

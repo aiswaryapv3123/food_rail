@@ -18,8 +18,8 @@ class _FeaturedFoodState extends State<FeaturedFood> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: width(context, width: 1),
-      height: height(context, height: 3.3),
+      width: screenWidth(context, dividedBy: 1),
+      height: screenHeight(context, dividedBy: 3.3),
       // color: Colors.amber,
       child: ListView.builder(
         itemCount: widget.featuredProducts.length,
@@ -31,19 +31,19 @@ class _FeaturedFoodState extends State<FeaturedFood> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CachedNetworkImage(
-                  width: height(context, height: 4),
-                  height: height(context, height: 5),
+                  width: screenHeight(context, dividedBy: 4),
+                  height: screenHeight(context, dividedBy: 5),
                   imageUrl: widget.featuredProducts[index].image,
-                  fit: BoxFit.fill,
+                  fit: BoxFit.cover,
                   imageBuilder: (context, img) {
                     return Container(
-                      width: height(context, height: 4),
-                      height: height(context, height: 5),
-                      margin: EdgeInsets.only(right: width(context, width: 30)),
+                      width: screenHeight(context, dividedBy: 4),
+                      height: screenHeight(context, dividedBy: 5),
+                      margin: EdgeInsets.only(right: screenWidth(context, dividedBy: 30)),
                       decoration: BoxDecoration(
                         // borderRadius: BorderRadius.circular(10),
                         image: DecorationImage(
-                          fit: BoxFit.fill,
+                          fit: BoxFit.cover,
                           image: img,
                         ),
                       ),
@@ -68,17 +68,17 @@ class _FeaturedFoodState extends State<FeaturedFood> {
                   ),
                 ),
                 SizedBox(
-                  height: height(context, height: 70),
+                  height: screenHeight(context, dividedBy: 70),
                 ),
                 Row(
                   children: [
-                    SizedBox(width: width(context, width: 50)),
+                    SizedBox(width: screenWidth(context, dividedBy: 50)),
                     VegIndicator(
                       vegetarian: widget.featuredProducts[index].isVeg == "1"
                           ? true
                           : false,
                     ),
-                    SizedBox(width: width(context, width: 50)),
+                    SizedBox(width: screenWidth(context, dividedBy: 50)),
                     Text(widget.featuredProducts[index].name,
                         style: TextStyle(
                             fontSize: 12,
@@ -88,16 +88,16 @@ class _FeaturedFoodState extends State<FeaturedFood> {
                   ],
                 ),
                 SizedBox(
-                  height: height(context, height: 70),
+                  height: screenHeight(context, dividedBy: 70),
                 ),
                 Row(
                   children: [
-                    SizedBox(width: width(context, width: 50)),
+                    SizedBox(width: screenWidth(context, dividedBy: 50)),
                     AddButton(
                       label: "Add",
                       onPressed: () {},
                     ),
-                    SizedBox(width: width(context, width: 50)),
+                    SizedBox(width: screenWidth(context, dividedBy: 50)),
                     Text("C\$ "+widget.featuredProducts[index].price,
                         style: TextStyle(
                             fontSize: 12,

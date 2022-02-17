@@ -1,3 +1,4 @@
 enum FoodEvents {
   fetchHomeData,
+  fetchCategoryList,
 }

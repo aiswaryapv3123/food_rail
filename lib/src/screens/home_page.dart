@@ -3,7 +3,8 @@ import 'package:food_rail/src/bloc/events.dart';
 import 'package:food_rail/src/bloc/home_bloc.dart';
 import 'package:food_rail/src/bloc/states.dart';
 import 'package:food_rail/src/models/get_home_data.dart';
-import 'package:food_rail/src/screens/home_content.dart';
+import 'package:food_rail/src/screens/bottom_navigation_bar.dart';
+import 'package:food_rail/src/widgets/home/home_content.dart';
 import 'package:food_rail/src/utils/constants.dart';
 import 'package:food_rail/src/utils/utils.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,17 +35,20 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      bottomNavigationBar: BottomBar(
+        index: 0,
+      ),
       appBar: AppBar(
-        toolbarHeight: height(context, height: 10),
+        toolbarHeight: screenHeight(context, dividedBy: 10),
         elevation: 0,
         leading: Container(),
         actions: [
           Container(
-            width: width(context, width: 1),
+            width: screenWidth(context, dividedBy: 1),
             // height: height(context, height: 30),
             padding: EdgeInsets.only(
-                left: width(context, width: 40),
-                top: height(context, height: 70)),
+                left: screenHeight(context, dividedBy: 40),
+                top: screenHeight(context, dividedBy: 70)),
             color: Colors.white,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -56,10 +60,10 @@ class _HomePageState extends State<HomePage> {
                         fontFamily: "Exo-Regular",
                         fontWeight: FontWeight.w700)),
                 SizedBox(
-                  height: height(context, height: 60),
+                  height: screenHeight(context, dividedBy: 60),
                 ),
                 Container(
-                    width: width(context, width: 3),
+                    width: screenWidth(context, dividedBy: 3),
                     child: Divider(color: Constants.colors[3], thickness: 2)),
               ],
             ),
