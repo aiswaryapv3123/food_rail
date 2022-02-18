@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:food_rail/src/models/get_category_list_data.dart';
 import 'package:food_rail/src/models/get_home_data.dart';
+import 'package:food_rail/src/models/get_products.dart';
 
 abstract class FoodStates extends Equatable {
   @override
@@ -23,7 +24,6 @@ class HomeErrorState extends FoodStates {
   HomeErrorState({this.error});
 }
 
-
 /// category states
 
 class CategoryInitState extends FoodStates {}
@@ -38,4 +38,20 @@ class CategoryLoadedState extends FoodStates {
 class CategoryErrorState extends FoodStates {
   final error;
   CategoryErrorState({this.error});
+}
+
+/// products states
+
+class ProductsInitState extends FoodStates {}
+
+class ProductsLoadingState extends FoodStates {}
+
+class ProductsLoadedState extends FoodStates {
+  final GetProducts getProducts;
+  ProductsLoadedState({this.getProducts});
+}
+
+class ProductsErrorState extends FoodStates {
+  final error;
+  ProductsErrorState({this.error});
 }

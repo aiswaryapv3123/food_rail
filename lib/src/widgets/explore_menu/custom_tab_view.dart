@@ -1,19 +1,32 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:food_rail/src/models/get_category_list_data.dart';
 import 'package:food_rail/src/utils/constants.dart';
 import 'package:food_rail/src/utils/utils.dart';
 
 class CustomTabView extends StatefulWidget {
-  const CustomTabView({Key key, this.title, this.onTap}) : super(key: key);
-  final List<String> title;
-  final Function onTap;
+  const CustomTabView({Key key, this.data, this.onTap}) : super(key: key);
+  final List<Datum> data;
+  final ValueChanged<int> onTap;
 
   @override
   _CustomTabViewState createState() => _CustomTabViewState();
 }
 
 class _CustomTabViewState extends State<CustomTabView> {
-  int selectedIndex = 0;
+  int selectedIndex = 105;
+  int tabIndex = 0;
+  String productId = "105";
+  List<String> categories = [];
+  @override
+  void initState() {
+    // TODO: implement initState
+    for (int i = 0; i < widget.data.length; i++) {
+      categories.add(widget.data[i].catName);
+    }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -22,7 +35,7 @@ class _CustomTabViewState extends State<CustomTabView> {
       color: Colors.white,
       padding: EdgeInsets.only(left: screenWidth(context, dividedBy: 40)),
       child: ListView.builder(
-        itemCount: widget.title.length,
+        itemCount: categories.length,
         shrinkWrap: true,
         scrollDirection: Axis.horizontal,
         itemBuilder: (BuildContext context, int index) {
@@ -33,16 +46,17 @@ class _CustomTabViewState extends State<CustomTabView> {
             child: GestureDetector(
               onTap: () {
                 setState(() {
-                  selectedIndex = index;
+                  tabIndex = index;
+                  selectedIndex = widget.data[index].catId;
                   print("Index " + index.toString());
                 });
-                widget.onTap();
+                widget.onTap(selectedIndex);
               },
               child: Container(
                 decoration: BoxDecoration(
                   border: Border(
                     bottom: BorderSide(
-                      color: index == selectedIndex
+                      color: index == tabIndex
                           ? Constants.colors[2]
                           : Colors.transparent,
                       width: 2.0,
@@ -50,13 +64,12 @@ class _CustomTabViewState extends State<CustomTabView> {
                   ),
                 ),
                 child: Text(
-                  widget.title[index],
+                  categories[index],
                   style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
-                      color: index == selectedIndex
-                          ? Constants.colors[2]
-                          : Colors.grey,
+                      color:
+                          index == tabIndex ? Constants.colors[2] : Colors.grey,
                       fontFamily: "Exo-Regular"),
                 ),
               ),

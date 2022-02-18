@@ -24,29 +24,29 @@ class _MenuCardState extends State<MenuCard> {
             width: screenHeight(context, dividedBy: 1),
             height: screenHeight(context, dividedBy: 3),
             imageUrl:
-                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWmEyOwjjbTl4IJCb3a1FuZ67CcRpJjeHNIg&usqp=CAU",
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWmEyOwjjbTl4IJCb3a1FuZ67CcRpJjeHNIg&usqp=CAU",
             fit: BoxFit.cover,
             imageBuilder: (context, img) {
               return Container(
-                width: screenHeight(context, dividedBy: 1),
-                height: screenHeight(context, dividedBy: 3),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(4),
-                    topRight: Radius.circular(4),
+                  width: screenHeight(context, dividedBy: 1),
+                  height: screenHeight(context, dividedBy: 3),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(4),
+                      topRight: Radius.circular(4),
+                    ),
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: img,
+                    ),
                   ),
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: img,
-                  ),
-                ),
-                child:Align(
-                  alignment:Alignment.bottomRight,
-                  child:Padding(
-                    padding:  EdgeInsets.only(right:screenWidth(context, dividedBy:30), bottom:screenWidth(context, dividedBy:30)),
-                    child: Icon(Icons.favorite_border, color:Colors.grey),
+                  child:Align(
+                      alignment:Alignment.bottomRight,
+                      child:Padding(
+                        padding:  EdgeInsets.only(right:screenWidth(context, dividedBy:30), bottom:screenWidth(context, dividedBy:30)),
+                        child: Icon(Icons.favorite_border, color:Colors.grey),
+                      )
                   )
-                )
               );
             },
             placeholder: (context, img) => Center(

@@ -1,7 +1,13 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:food_rail/src/bloc/category_list_bloc.dart';
 import 'package:food_rail/src/bloc/events.dart';
+import 'package:food_rail/src/bloc/products_bloc.dart';
 import 'package:food_rail/src/bloc/states.dart';
+import 'package:food_rail/src/models/get_products.dart';
+import 'package:food_rail/src/models/request_products.dart';
 import 'package:food_rail/src/screens/bottom_navigation_bar.dart';
 import 'package:food_rail/src/screens/cart_page.dart';
 import 'package:food_rail/src/utils/constants.dart';
@@ -10,6 +16,8 @@ import 'package:food_rail/src/widgets/explore_menu/custom_tab_view.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_rail/src/widgets/explore_menu/menu_cards.dart';
 import 'package:food_rail/src/widgets/explore_menu/shimmer_tab_view.dart';
+import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
 
 class ExploreMenuPage extends StatefulWidget {
   const ExploreMenuPage({Key key}) : super(key: key);
@@ -20,16 +28,64 @@ class ExploreMenuPage extends StatefulWidget {
 
 class _ExploreMenuPageState extends State<ExploreMenuPage> {
   List<String> categories = [];
+  List<String> categoryId = [];
   List<int> cartList = [];
+  GetProducts products;
+  int productId;
+  GetProducts data;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     _loadData();
+    // requestProducts(productId: "105");
   }
 
   _loadData() async {
     context.bloc<CategoryListBloc>().add(FoodEvents.fetchCategoryList);
+  }
+
+
+  productsRequest({String productId}) async {
+    final uri = Uri.parse('http://fda.intertoons.com/api/V1/products');
+    final headers = {
+      HttpHeaders.authorizationHeader: 'Bearer akhil@intertoons.com',
+    };
+    Map<String, dynamic> body = {
+      "currentpage": 1,
+      "pagesize": 100,
+      "sortorder": {
+        "field": "menu_name",
+        "direction": "desc"
+      },
+      "searchstring": "",
+      "filter": {
+        "category": "103"
+      }
+    };
+    var jsonBody = json.encode(body);
+    final encoding = Encoding.getByName('utf-8');
+
+    Response response = await post(
+      uri,
+      headers: headers,
+      body: json.encode(body),
+      encoding: encoding,
+    );
+    if (response.statusCode == 201 || response.statusCode == 200) {
+      // products = jsonDecode(response.body);
+      data = jsonDecode(response.body);
+      print("Products");
+      print(jsonDecode(response.body));
+      return jsonDecode(response.body);
+    } else {
+      throw Exception('Failed to create Request');
+    }
+    // int statusCode = response.statusCode;
+    // String responseBody = response.body;
+    // print("Response Body");
+    // print(response.toString());
   }
 
   @override
@@ -56,7 +112,7 @@ class _ExploreMenuPageState extends State<ExploreMenuPage> {
                   color: Constants.colors[0],
                   fontFamily: "Exo-Regular"),
             ),
-          )
+          ),
         ],
         bottom: PreferredSize(
           preferredSize: Size(screenWidth(context, dividedBy: 1),
@@ -66,8 +122,14 @@ class _ExploreMenuPageState extends State<ExploreMenuPage> {
               if (state is CategoryErrorState) {
                 final error = state.error;
                 return Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * 0.8,
+                  width: MediaQuery
+                      .of(context)
+                      .size
+                      .width,
+                  height: MediaQuery
+                      .of(context)
+                      .size
+                      .height * 0.8,
                   child: Center(
                     child: Text(
                       error.message,
@@ -81,42 +143,25 @@ class _ExploreMenuPageState extends State<ExploreMenuPage> {
                 );
               }
               if (state is CategoryLoadedState) {
-                for (int i = 0; i < 10; i++) {
-                  categories.add(state.getCategoryListData.data[i].catName);
-                }
+                // for (int i = 0;
+                //     i < state.getCategoryListData.data.length;
+                //     i++) {
+                //   categories.add(state.getCategoryListData.data[i].catName);
+                //   categoryId
+                //       .add(state.getCategoryListData.data[i].catId.toString());
+                // }
                 return CustomTabView(
-                  title: categories,
-                  onTap: () {
-                    // for (int i = 0; i < categories.length; i++) {
-                    //   setState(() {
-                    //     categoryId = i;
-                    //     print(
-                    //       " Category id and type" +
-                    //           i.toString() +
-                    //           categories[i],
-                    //     );
-                    //   });
-                    // }
-                  },
+                    data: state.getCategoryListData.data,
+                    onTap: (val) {
+                      productsRequest(productId: val.toString());
+                      setState(() {
+                        productId = val;
+                      });
+                      print("Selected Id " + productId.toString());
+                    }
                 );
               }
               return ShimmerTabView();
-              //   Container(
-              //   width: MediaQuery.of(context).size.width,
-              //   height: MediaQuery.of(context).size.height * 0.8,
-              //   child: Center(
-              //     child: SizedBox(
-              //       width: 18,
-              //       height: 18,
-              //       child: CircularProgressIndicator(
-              //         strokeWidth: 2,
-              //         valueColor: AlwaysStoppedAnimation<Color>(
-              //           Constants.colors[1],
-              //         ),
-              //       ),
-              //     ),
-              //   ),
-              // );
             },
           ),
         ),
@@ -153,44 +198,44 @@ class _ExploreMenuPageState extends State<ExploreMenuPage> {
               ),
             ),
           ),
-          categories.length == 0
+          cartList.length <= 0
               ? Container()
               : Positioned(
-                  bottom: 0,
-                  child: Container(
-                    width: screenWidth(context, dividedBy: 1),
-                    height: screenHeight(context, dividedBy: 12),
-                    padding: EdgeInsets.symmetric(
-                        horizontal: screenWidth(context, dividedBy: 50)),
-                    color: Colors.black,
-                    child: Row(
-                      children: [
-                        Text(
-                          cartList.length.toString()+" Item (s) in cart",
-                          style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color: Constants.colors[0],
-                              fontFamily: "Exo-Regular"),
-                        ),
-                        Spacer(),
-                        GestureDetector(
-                          onTap: () {
-                            push(context, CartPage());
-                          },
-                          child: Text(
-                            "View Cart",
-                            style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Constants.colors[0],
-                                fontFamily: "Exo-Regular"),
-                          ),
-                        ),
-                      ],
+            bottom: 0,
+            child: Container(
+              width: screenWidth(context, dividedBy: 1),
+              height: screenHeight(context, dividedBy: 12),
+              padding: EdgeInsets.symmetric(
+                  horizontal: screenWidth(context, dividedBy: 50)),
+              color: Colors.black,
+              child: Row(
+                children: [
+                  Text(
+                    cartList.length.toString() + " Item (s) in cart",
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Constants.colors[0],
+                        fontFamily: "Exo-Regular"),
+                  ),
+                  Spacer(),
+                  GestureDetector(
+                    onTap: () {
+                      push(context, CartPage());
+                    },
+                    child: Text(
+                      "View Cart",
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Constants.colors[0],
+                          fontFamily: "Exo-Regular"),
                     ),
                   ),
-                ),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );
