@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:food_rail/src/models/get_products.dart';
 import 'package:food_rail/src/utils/constants.dart';
 import 'package:food_rail/src/utils/utils.dart';
 import 'package:food_rail/src/widgets/food_card/add_button.dart';
@@ -7,7 +8,8 @@ import 'package:food_rail/src/widgets/food_card/veg_indicator.dart';
 
 class MenuCard extends StatefulWidget {
   final Function onAddItem;
-  const MenuCard({Key key, this.onAddItem}) : super(key: key);
+  final Product products;
+  const MenuCard({Key key, this.onAddItem, this.products}) : super(key: key);
 
   @override
   _MenuCardState createState() => _MenuCardState();
@@ -23,8 +25,9 @@ class _MenuCardState extends State<MenuCard> {
           CachedNetworkImage(
             width: screenHeight(context, dividedBy: 1),
             height: screenHeight(context, dividedBy: 3),
-            imageUrl:
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWmEyOwjjbTl4IJCb3a1FuZ67CcRpJjeHNIg&usqp=CAU",
+            imageUrl: widget.products.image == null
+                ? "https://image.shutterstock.com/image-vector/image-not-found-grayscale-photo-260nw-1737334631.jpg"
+                : widget.products.image,
             fit: BoxFit.cover,
             imageBuilder: (context, img) {
               return Container(
@@ -40,14 +43,14 @@ class _MenuCardState extends State<MenuCard> {
                       image: img,
                     ),
                   ),
-                  child:Align(
-                      alignment:Alignment.bottomRight,
-                      child:Padding(
-                        padding:  EdgeInsets.only(right:screenWidth(context, dividedBy:30), bottom:screenWidth(context, dividedBy:30)),
-                        child: Icon(Icons.favorite_border, color:Colors.grey),
-                      )
-                  )
-              );
+                  child: Align(
+                      alignment: Alignment.bottomRight,
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                            right: screenWidth(context, dividedBy: 30),
+                            bottom: screenWidth(context, dividedBy: 30)),
+                        child: Icon(Icons.favorite_border, color: Colors.grey),
+                      )));
             },
             placeholder: (context, img) => Center(
               child: SizedBox(
@@ -77,7 +80,10 @@ class _MenuCardState extends State<MenuCard> {
                 vegetarian: false,
               ),
               SizedBox(width: screenWidth(context, dividedBy: 50)),
-              Text("Beef Steak",
+              Text(
+                  widget.products.name == null
+                      ? "Not available"
+                      : widget.products.name,
                   style: TextStyle(
                       fontSize: 17,
                       color: Colors.black,
@@ -94,7 +100,9 @@ class _MenuCardState extends State<MenuCard> {
               children: [
                 SizedBox(width: screenWidth(context, dividedBy: 50)),
                 Text(
-                  "C\$ 3.99",
+                  "C\$ " + widget.products.price == null
+                      ? "10"
+                      : widget.products.price,
                   style: TextStyle(
                       fontSize: 17,
                       color: Constants.colors[2],

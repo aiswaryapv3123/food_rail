@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_polygon/flutter_polygon.dart';
 import 'package:food_rail/src/utils/constants.dart';
 import 'package:food_rail/src/utils/utils.dart';
-import 'package:flutter_polygon/flutter_polygon.dart';
 
 class ExploreMenu extends StatefulWidget {
   const ExploreMenu({Key key}) : super(key: key);

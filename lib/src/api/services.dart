@@ -16,9 +16,9 @@ abstract class FoodHomeRepo {
 }
 
 class FoodServices implements FoodHomeRepo {
-  Map<String, String> requestHeaders = {
-    'Authorization': 'Bearer akhil@intertoons.com'
-  };
+  // Map<String, String> requestHeaders = {
+  //   'Authorization': 'Bearer akhil@intertoons.com'
+  // };
 
   @override
   Future<GetHomeData> getHomeData() async {
@@ -39,6 +39,7 @@ class FoodServices implements FoodHomeRepo {
     GetHomeData homeData = getHomeDataFromJson(response.body);
     return homeData;
   }
+
 
   @override
   Future<GetCategoryListData> getcategories() async {

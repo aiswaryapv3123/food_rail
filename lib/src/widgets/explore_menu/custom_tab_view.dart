@@ -5,16 +5,18 @@ import 'package:food_rail/src/utils/constants.dart';
 import 'package:food_rail/src/utils/utils.dart';
 
 class CustomTabView extends StatefulWidget {
-  const CustomTabView({Key key, this.data, this.onTap}) : super(key: key);
+  const CustomTabView({Key key, this.data,
+    this.onTap
+  }) : super(key: key);
   final List<Datum> data;
-  final ValueChanged<int> onTap;
+  final ValueChanged<String> onTap;
 
   @override
   _CustomTabViewState createState() => _CustomTabViewState();
 }
 
 class _CustomTabViewState extends State<CustomTabView> {
-  int selectedIndex = 105;
+  String selectedIndex = "105";
   int tabIndex = 0;
   String productId = "105";
   List<String> categories = [];
@@ -47,8 +49,9 @@ class _CustomTabViewState extends State<CustomTabView> {
               onTap: () {
                 setState(() {
                   tabIndex = index;
-                  selectedIndex = widget.data[index].catId;
+                  selectedIndex = widget.data[index].catId.toString();
                   print("Index " + index.toString());
+                  print("Selected category Id " + widget.data[index].catId.toString());
                 });
                 widget.onTap(selectedIndex);
               },

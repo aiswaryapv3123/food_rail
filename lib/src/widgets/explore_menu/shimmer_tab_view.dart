@@ -18,7 +18,8 @@ class _ShimmerTabViewState extends State<ShimmerTabView> {
   Widget build(BuildContext context) {
     return Container(
       width: screenWidth(context, dividedBy: 1),
-      height: screenHeight(context, dividedBy: 12),
+      height: screenHeight(context, dividedBy: 30),
+      color: Colors.white,
       child: Center(
         child: ListView.builder(
           itemCount: 10,
@@ -30,11 +31,18 @@ class _ShimmerTabViewState extends State<ShimmerTabView> {
                   right: screenWidth(context, dividedBy: 30),
                   top: screenHeight(context, dividedBy: 60)),
               child: Shimmer.fromColors(
-                baseColor: Colors.grey.shade400,
+                baseColor: Colors.grey.shade300,
                 highlightColor: Colors.white,
                 child: Container(
-                  width: screenWidth(context, dividedBy: 4),
+                  width: screenWidth(context, dividedBy: 3),
                   height: screenHeight(context, dividedBy: 30),
+                  decoration: BoxDecoration(
+                      color:Colors.pink,
+                    borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(4),
+                      topLeft: Radius.circular(4)
+                    )
+                  ),
                 ),
               ),
             );
